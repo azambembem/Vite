@@ -1,29 +1,52 @@
-// MemoryRouter 왜 필요할까요?  URL 상태를 메모리에 저장하는 라우터입니다. 주로 테스트나 브라우저가
-// 필요 없는 환경에서 라우팅을 처리할 때 사용됩니다.
-import Navbar from "./navbar";
-import { Route, Routes } from "react-router-dom";
-import Blog from "./pages/blog";
-import Contact from "./pages/contact";
-import History from "./pages/history";
-import About from "./pages/about";
-import Company from "./pages/about/company";
-import Factory from "./pages/about/facture";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+// BrowserRouter - katta orab turuvchi hisoblanadi. keyin katta projlarda main.tsx fileda turadi.
+// Routes - parent childlarni o'rab turuvchi
+// Route - child
+// Link - keyingi pagega otib yuboruvchi
+
+const Home = () => (
+  <div style={{ padding: "20px" }}>
+    <h2>Home Page</h2>
+    <p>Welcome to the home page!</p>
+  </div>
+);
+
+const About = () => (
+  <div style={{ padding: "20px" }}>
+    <h2>About Page</h2>
+    <p>This is the about page!</p>
+  </div>
+);
+
+const Contact = () => (
+  <div style={{ padding: "20px" }}>
+    <h2>Contact Page</h2>
+    <p>Contact us at: contact@example.com</p>
+  </div>
+);
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
+    <Router>
+      <nav>
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          <li style={{ display: "inline", marginRight: "10px" }}>
+            <Link to="/">Home</Link>
+          </li>
+          <li style={{ display: "inline", marginRight: "10px" }}>
+            <Link to="/about">About</Link>
+          </li>
+          <li style={{ display: "inline" }}>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
       <Routes>
-        <Route path="/about" element={<About />}>
-          <Route path="company" element={<Company />} />
-          <Route path="factory" element={<Factory />} />
-        </Route>
-
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/blog" element={<Blog />} />
       </Routes>
-    </div>
+    </Router>
   );
 };
 
